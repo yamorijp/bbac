@@ -2,7 +2,13 @@
   "name": "bbac",
   "version": "0.1.0",
   "description": "bitbank API Console",
-  "keywords": ["bitbank", "bitcoin", "api", "console", "repl"],
+  "keywords": [
+    "bitbank",
+    "bitcoin",
+    "api",
+    "console",
+    "repl"
+  ],
   "main": "console.js",
   "scripts": {
     "test": "mocha",
@@ -28,6 +34,6 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^8.4.0"
   }
 }

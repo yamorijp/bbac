@@ -6,12 +6,22 @@ const PAIRS = {
   // price_fmt, volume_fmt
   'btc_jpy': [0, 4],
   'xrp_jpy': [3, 4],
-  'ltc_btc': [8, 4],
-  'eth_btc': [8, 4],
-  'mona_jpy': [3, 4],
-  'mona_btc': [8, 4],
+  'eth_jpy': [0, 4],
+  'ltc_jpy': [0, 4],
   'bcc_jpy': [0, 4],
-  'bcc_btc': [8, 4]
+  'mona_jpy': [3, 4],
+  'xlm_jpy': [3, 4],
+  'qtum_jpy': [3, 4],
+  'bat_jpy': [3, 4],
+
+  'xrp_btc': [8, 4],
+  'eth_btc': [8, 4],
+  'ltc_btc': [8, 4],
+  'bcc_btc': [8, 4],
+  'mona_btc': [8, 4],
+  'xlm_btc': [8, 4],
+  'qtum_btc': [8, 4],
+  'bat_btc': [8, 4]
 };
 
 class Product {

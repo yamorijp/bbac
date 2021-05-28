@@ -21,6 +21,8 @@ let tickers = null;
 const _render = () => {
   const out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -53,6 +55,8 @@ const _render = () => {
 
   out.write(term.separator + term.nl);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 const render = throttle(_render, render_wait);
 
@@ -68,11 +72,11 @@ const main = (program) => {
   tickers = new model.TickerBoard(product_map);
 
   const ws = new api.RealtimeAPI()
-    .attach((ch, message) => {
-      tickers.update(ch, message.data);
+    .bind('message', data => {
+      tickers.update(data.room_name, data.message.data);
       render();
-    });
-
+    })
+  
   Array.from(product_map.values()).forEach(p => {
     pub.call('GET', '/' + p.code + '/ticker', {})
       .then(resp => {

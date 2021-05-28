@@ -23,6 +23,8 @@ let book = new model.OrderBook();
 const _render = () => {
   const out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -68,6 +70,8 @@ const _render = () => {
 
   out.write(`  Service) ${health.status}`);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 const render = throttle(_render, render_wait);
 
@@ -92,13 +96,13 @@ const main = (program) => {
   setInterval(check_health, 60000);
 
   new api.RealtimeAPI()
-    .attach((ch, message) => {
-      switch (ch) {
+    .bind('message', data => {
+      switch (data.room_name) {
         case product.get_depth_channel():
-          book.setData(message.data);
+          book.setData(data.message.data);
           break;
         case product.get_ticker_channel():
-          ticker.update(message.data);
+          ticker.update(data.message.data);
           break;
       }
       render();

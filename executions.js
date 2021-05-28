@@ -20,6 +20,8 @@ let buffer = new model.ExecutionBuffer();
 const _render = () => {
   const out = process.stdout;
 
+  out.cork();
+
   out.write(term.clear);
   out.write(term.nl);
 
@@ -57,6 +59,8 @@ const _render = () => {
 
   out.write(term.separator + term.nl);
   out.write(term.nl);
+
+  process.nextTick(() => out.uncork());
 };
 const render = throttle(_render, render_wait);
 
@@ -72,12 +76,12 @@ const main = (program) => {
       render();
     });
 
-  new api.RealtimeAPI()
+    new api.RealtimeAPI()
     .subscribe(product.get_transactions_channel())
-    .attach((ch, message) => {
-      buffer.addAll(message.data.transactions);
+    .bind('message', data => {
+      buffer.addAll(data.message.data.transactions);
       render();
-    });
+    });    
 };
 
 process.on("uncaughtException", (err) => {

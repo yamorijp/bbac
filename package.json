@@ -29,6 +29,7 @@
     "jsonschema": "^1.2.0",
     "lodash.throttle": "^4.1.1",
     "pubnub": "^4.0.8",
+    "socket.io-client": "^2.4.0",
     "sync-request": "^4.1.0",
     "then-request": "^4.1.0",
     "uuid": "^3.1.0"

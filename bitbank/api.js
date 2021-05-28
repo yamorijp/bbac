@@ -7,12 +7,14 @@
 const qs = require('qs');
 const crypto = require('crypto');
 const PubNub = require('pubnub');
+const io = require('socket.io-client');
 const request = require('then-request');
 const requestSync = require('sync-request');
 
 const PUBLIC_ENDPOINT = "https://public.bitbank.cc";
-const PRIVATE_ENDPOINT = "https://api.bitbank.cc"
+const PRIVATE_ENDPOINT = "https://api.bitbank.cc";
 const SUBSCRIBE_KEY = "sub-c-e12e9174-dd60-11e6-806b-02ee2ddab7fe";
+const REALTIME_ENDPOINT = "wss://stream.bitbank.cc";
 
 let debug = false;
 
@@ -140,6 +142,8 @@ class PrivateAPI extends PublicAPI {
 
 
 /**
+ * @deprecated
+ * @obsolete
  * Realtime API クライアント
  *
  *     new RealtimeAPI()
@@ -185,7 +189,26 @@ class RealtimeAPI {
   }
 }
 
+
+class RealtimeAPI2 {
+
+  constructor() {
+    this.socket = io(REALTIME_ENDPOINT, {transports:['websocket']});
+  }
+
+  subscribe(room) {
+    this.socket.emit('join-room', room);  // volatile=false
+    return this;
+  }
+
+  bind(event, callback) {
+    this.socket.on(event, callback);
+    return this;
+  }
+}
+
+
 module.exports.PublicAPI = PublicAPI;
 module.exports.PrivateAPI = PrivateAPI;
-module.exports.RealtimeAPI = RealtimeAPI;
+module.exports.RealtimeAPI = RealtimeAPI2;
 module.exports.set_debug = set_debug;

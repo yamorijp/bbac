@@ -36,7 +36,11 @@ class Product {
   }
 
   get_depth_channel() {
-    return 'depth_' + this.code;
+    return 'depth_whole_' + this.code;
+  }
+
+  get_depth_diff_channel() {
+    return 'depth_diff_' + this.code;
   }
 
   get_transactions_channel() {

@@ -122,5 +122,9 @@ APIの詳細は、bitbankによる[APIドキュメント](https://docs.bitbank.c
 MIT
 
 
+## チップ
+
 BTC: `1BpLZm4JEFiDqAnaexuYMhGJZKdRQJKixP`  
 ETH: `0x51349760d4a5287dbfa3961ca2e0006936bc9d88`
+
+BAT ([Brave Rewards](https://brave.com/ja/brave-rewards/))でのチップも熱烈歓迎中！
